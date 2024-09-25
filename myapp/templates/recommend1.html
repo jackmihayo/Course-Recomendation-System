@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Recommender System</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<style>
+    .text-black{
+        color:black
+    }
+</style>
+<body style="background-color:#778899">
+
+    <nav class="navbar" style="background-color:black">
+        <a class="navbar-brand">Course Recommender</a>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/recommend">Recommend</a></li>
+            <li><a>Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-black" style="font-size:50px">Recommend Course</h1>
+                <form action="/recommend_books" method="GET">
+                    {% csrf_token %}
+                    <input name="user_input" type="text" class="form-control"><br>
+                    <input type="submit" class="btn btn-lg " style="background-color;" value="Recommend">
+                </form>
+            </div>
+
+            {% if data %}
+                {% for item in data %}
+                    <div class="col-md-3" style="margin-top:50px; background-color:#D3D3D3; margin-right:70px;">
+                        <div class="card">
+                            <div class="card-body"> 
+                                <h4 class="text-black" style="margin-bottom-10px">{{ item.0 }}</h4>
+                                <p>------------------------------------------------------ </p>
+                                <p class="text-black">Conducted by:{{ item.1 }}</p>
+                                <p class="text-black">Level:{{ item.2 }}</p>
+                                <p class="text-black">Rating:{{ item.3 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
